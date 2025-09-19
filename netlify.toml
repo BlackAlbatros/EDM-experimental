@@ -7,7 +7,12 @@
 [functions]
   external_node_modules = ["express"]
   node_bundler = "esbuild"
-  
+
+# Run weekly to sample the external feed
+[[scheduled.functions]]
+  name = "weekly-feed"
+  cron = "@weekly"
+
 [[redirects]]
   force = true
   from = "/api/*"
