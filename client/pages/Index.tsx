@@ -73,7 +73,7 @@ export default function Index() {
 
         {!q && categories.map(({ name, slug, items }) => (
           <section key={slug} className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
               <h2 className="text-lg md:text-xl font-bold">{name}</h2>
               <Link
                 to={`/category/${slug}`}
