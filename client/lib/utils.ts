@@ -21,3 +21,13 @@ export function parseDate(d?: string) {
   const t = Date.parse(d);
   return Number.isNaN(t) ? 0 : t;
 }
+
+export function formatDuration(seconds?: number) {
+  if (!seconds || seconds < 0) return "0:00";
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  const mm = h > 0 ? String(m).padStart(2, "0") : String(m);
+  const ss = String(s).padStart(2, "0");
+  return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+}
