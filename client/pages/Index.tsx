@@ -23,7 +23,8 @@ export default function Index() {
   let searchResults: FeedItem[] = [];
   if (q && data?.shortFormVideos) {
     searchResults = data.shortFormVideos.filter((v) => {
-      const hay = `${v.title} ${v.shortDescription ?? ""}`.toLowerCase();
+      const hay = `${v.title} ${v.shortDescription ?? ""} ${(v.tags || []).join(" ")}`
+        .toLowerCase();
       return hay.includes(q);
     });
   }
