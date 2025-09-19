@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 import type { FeedResponse, FeedItem } from "@shared/api";
-import { slugify } from "@/lib/utils";
+import { slugify, formatDuration } from "@/lib/utils";
 
 export default function CategoryPage() {
   const params = useParams();
@@ -26,10 +26,8 @@ export default function CategoryPage() {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl md:text-2xl font-bold capitalize">
-          {slug.replace(/-/g, " ")}
-        </h2>
-        <Link to="/" className="text-primary hover:underline">
+        <h2 className="text-xl md:text-2xl font-bold capitalize">{slug.replace(/-/g, " ")}</h2>
+        <Link to="/" className="inline-flex items-center gap-1 rounded-md bg-secondary px-3 py-2 text-xs font-medium text-secondary-foreground hover:bg-secondary/80">
           ← Back
         </Link>
       </div>
@@ -49,13 +47,16 @@ function VideoCard({ item }: { item: FeedItem }) {
       href={videoUrl}
       target="_blank"
       rel="noreferrer"
-      className="group block overflow-hidden rounded-lg border bg-card hover:shadow-lg transition"
+      className="group block overflow-hidden rounded-lg border bg-card hover:shadow-lg transition relative"
     >
       <img
         src={item.thumbnail}
         alt={item.title}
         className="aspect-video w-full object-cover group-hover:opacity-90"
       />
+      <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
+        {formatDuration(item.content.duration)}
+      </span>
       <div className="p-3">
         <h3 className="line-clamp-2 font-medium">{item.title}</h3>
       </div>
