@@ -25,9 +25,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b">
       <div className="container mx-auto flex items-center gap-3 py-3">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={LOGO_URL} alt="Muziq.Rocks" className="h-8 w-8" />
-          <span className="font-bold tracking-wide">Muziq.Rocks</span>
+        <Link to="/" className="flex items-center">
+          <img src={LOGO_URL} alt="Muziq.Rocks" className="h-10 w-10 md:h-12 md:w-12" />
         </Link>
         <div className="ml-auto w-full max-w-md">
           <input
