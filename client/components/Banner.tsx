@@ -10,11 +10,11 @@ export function Banner({ total }: { total: number }) {
         src={BANNER_URL}
         alt="Electronic Music banner"
         className={cn(
-          "h-[32vh] min-h-[220px] w-full object-cover object-center md:h-[44vh]",
+          "h-[22vh] min-h-[160px] w-full object-cover object-center md:h-[28vh]",
         )}
       />
       <div className="absolute inset-0 bg-black/60" />
-      <div className="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-10">
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-10 text-center">
         <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white">
           Muziq.Rocks – Electronic Music
         </h1>
@@ -22,7 +22,7 @@ export function Banner({ total }: { total: number }) {
           {new Intl.NumberFormat().format(total)} videos
         </p>
         <p className="mt-3 max-w-5xl text-sm md:text-base leading-relaxed text-white/90">
-          Dive into the electrifying world of electronic music with Muziq.Rocks, your go-to app for the best in Dance, House, Trance, NU Disco, and EDM. Whether you're a dedicated raver, a club enthusiast, or simply someone who loves to groove to the latest beats, Muziq.Rocks has something for you.  Explore a diverse collection of high-energy tracks that span across the spectrum of electronic genres. From the deep, hypnotic rhythms of House and Trance to the vibrant and funky vibes of NU Disco, Muziq.Rocks brings you the sounds that define the global dance scene.
+          Dive into the electrifying world of electronic music with Muziq.Rocks, your go-to app for the best in Dance, House, Trance, NU Disco, and EDM. Whether you're a dedicated raver, a club enthusiast, or simply someone who loves to groove to the latest beats, Muziq.Rocks has something for you. Explore a diverse collection of high-energy tracks that span across the spectrum of electronic genres. From the deep, hypnotic rhythms of House and Trance to the vibrant and funky vibes of NU Disco, Muziq.Rocks brings you the sounds that define the global dance scene.
         </p>
       </div>
     </section>
