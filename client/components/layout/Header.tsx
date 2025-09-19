@@ -15,14 +15,21 @@ export function Header() {
 
   function applySearch(value: string) {
     setQ(value);
-    navigate({ pathname: "/", search: value ? `?q=${encodeURIComponent(value)}` : "" }, { replace: true });
+    navigate(
+      { pathname: "/", search: value ? `?q=${encodeURIComponent(value)}` : "" },
+      { replace: true },
+    );
   }
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b">
       <div className="container mx-auto flex items-center gap-3 py-3">
         <Link to="/" className="flex items-center">
-          <img src={LOGO_URL} alt="Muziq.Rocks" className="h-12 w-auto md:h-14" />
+          <img
+            src={LOGO_URL}
+            alt="Muziq.Rocks"
+            className="h-12 w-auto md:h-14"
+          />
         </Link>
         <form
           className="ml-auto w-full max-w-md"
@@ -37,7 +44,12 @@ export function Header() {
             value={q}
             onChange={(e) => applySearch(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === "Go" || e.key === "Search" || e.key === "Select") {
+              if (
+                e.key === "Enter" ||
+                e.key === "Go" ||
+                e.key === "Search" ||
+                e.key === "Select"
+              ) {
                 e.preventDefault();
                 applySearch((e.target as HTMLInputElement).value);
               }

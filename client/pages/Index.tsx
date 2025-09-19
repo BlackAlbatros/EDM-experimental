@@ -23,8 +23,8 @@ export default function Index() {
   let searchResults: FeedItem[] = [];
   if (q && data?.shortFormVideos) {
     searchResults = data.shortFormVideos.filter((v) => {
-      const hay = `${v.title} ${v.shortDescription ?? ""} ${(v.tags || []).join(" ")}`
-        .toLowerCase();
+      const hay =
+        `${v.title} ${v.shortDescription ?? ""} ${(v.tags || []).join(" ")}`.toLowerCase();
       return hay.includes(q);
     });
   }
@@ -61,11 +61,20 @@ export default function Index() {
         {q && (
           <section className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg md:text-xl font-bold">Search results for “{q}”</h2>
-              <Link to="/" className="inline-flex items-center gap-1 rounded-md bg-secondary px-3 py-2 text-xs font-medium text-secondary-foreground hover:bg-secondary/80">Clear</Link>
+              <h2 className="text-lg md:text-xl font-bold">
+                Search results for “{q}”
+              </h2>
+              <Link
+                to="/"
+                className="inline-flex items-center gap-1 rounded-md bg-secondary px-3 py-2 text-xs font-medium text-secondary-foreground hover:bg-secondary/80"
+              >
+                Clear
+              </Link>
             </div>
             {searchResults.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No matches. Try a different keyword.</p>
+              <p className="text-sm text-muted-foreground">
+                No matches. Try a different keyword.
+              </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {searchResults.map((item) => (
@@ -76,25 +85,26 @@ export default function Index() {
           </section>
         )}
 
-        {!q && categories.map(({ name, slug, items }) => (
-          <section key={slug} className="space-y-4">
-            <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
-              <h2 className="text-lg md:text-xl font-bold">{name}</h2>
-              <Link
-                to={`/category/${slug}`}
-                className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
-                aria-label={`View all videos in ${name}`}
-              >
-                View all
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {items.slice(0, 3).map((item) => (
-                <VideoCard key={item.id} item={item} />
-              ))}
-            </div>
-          </section>
-        ))}
+        {!q &&
+          categories.map(({ name, slug, items }) => (
+            <section key={slug} className="space-y-4">
+              <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
+                <h2 className="text-lg md:text-xl font-bold">{name}</h2>
+                <Link
+                  to={`/category/${slug}`}
+                  className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
+                  aria-label={`View all videos in ${name}`}
+                >
+                  View all
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {items.slice(0, 3).map((item) => (
+                  <VideoCard key={item.id} item={item} />
+                ))}
+              </div>
+            </section>
+          ))}
       </div>
     </main>
   );

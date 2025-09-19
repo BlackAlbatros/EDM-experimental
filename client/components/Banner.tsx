@@ -22,7 +22,15 @@ export function Banner({ total }: { total: number }) {
           {new Intl.NumberFormat().format(total)} videos
         </p>
         <p className="mt-3 max-w-5xl text-sm md:text-base leading-relaxed text-white/90">
-          Dive into the electrifying world of electronic music with Muziq.Rocks, your go-to app for the best in Dance, House, Trance, NU Disco, and EDM. Whether you're a dedicated raver, a club enthusiast, or simply someone who loves to groove to the latest beats, Muziq.Rocks has something for you. Explore a diverse collection of high-energy tracks that span across the spectrum of electronic genres. From the deep, hypnotic rhythms of House and Trance to the vibrant and funky vibes of NU Disco, Muziq.Rocks brings you the sounds that define the global dance scene.
+          Dive into the electrifying world of electronic music with Muziq.Rocks,
+          your go-to app for the best in Dance, House, Trance, NU Disco, and
+          EDM. Whether you're a dedicated raver, a club enthusiast, or simply
+          someone who loves to groove to the latest beats, Muziq.Rocks has
+          something for you. Explore a diverse collection of high-energy tracks
+          that span across the spectrum of electronic genres. From the deep,
+          hypnotic rhythms of House and Trance to the vibrant and funky vibes of
+          NU Disco, Muziq.Rocks brings you the sounds that define the global
+          dance scene.
         </p>
       </div>
     </section>
