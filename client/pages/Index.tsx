@@ -29,7 +29,10 @@ export default function Index() {
   const categories = Array.from(byCategory.entries()).map(([name, items]) => ({
     name,
     slug: slugify(name),
-    items: [...items].sort((a, b) => parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded)),
+    items: [...items].sort(
+      (a, b) =>
+        parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
+    ),
   }));
 
   return (
@@ -38,7 +41,9 @@ export default function Index() {
         <Banner total={total} />
 
         {isLoading && <div className="p-6">Loading…</div>}
-        {error && <div className="p-6 text-destructive">Failed to load feed.</div>}
+        {error && (
+          <div className="p-6 text-destructive">Failed to load feed.</div>
+        )}
 
         {categories.map(({ name, slug, items }) => (
           <section key={slug} className="space-y-4">

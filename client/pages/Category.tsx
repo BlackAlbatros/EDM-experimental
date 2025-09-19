@@ -26,15 +26,17 @@ export default function CategoryPage() {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl md:text-2xl font-bold capitalize">{slug.replace(/-/g, " ")}</h2>
+        <h2 className="text-xl md:text-2xl font-bold capitalize">
+          {slug.replace(/-/g, " ")}
+        </h2>
         <Link to="/" className="text-primary hover:underline">
           ← Back
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {items.map((item) => (
-          <VideoCard key={item.id} item={item} />)
-        )}
+          <VideoCard key={item.id} item={item} />
+        ))}
       </div>
     </div>
   );
