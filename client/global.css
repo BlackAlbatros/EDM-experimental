@@ -21,9 +21,9 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Electric purple brand */
-    --primary: 277 86% 50%;
-    --primary-foreground: 0 0% 100%;
+    /* Muziq.Rocks brand orange */
+    --primary: 36 94% 54%;
+    --primary-foreground: 0 0% 0%;
 
     --secondary: 240 5% 96%;
     --secondary-foreground: 240 6% 10%;
@@ -31,8 +31,8 @@
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
 
-    --accent: 330 85% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 36 94% 54%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
