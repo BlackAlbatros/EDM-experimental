@@ -10,3 +10,35 @@
 export interface DemoResponse {
   message: string;
 }
+
+// Feed types matching the external JSON structure
+export interface FeedVideoVariant {
+  url: string;
+  quality: string;
+  videoType: string;
+  bitrate: number;
+}
+
+export interface FeedItemContent {
+  dateAdded: string; // ISO timestamp
+  duration: number; // seconds
+  videos: FeedVideoVariant[];
+}
+
+export interface FeedItem {
+  id: string;
+  title: string;
+  shortDescription?: string;
+  tags?: string[]; // categories
+  genres?: string[];
+  content: FeedItemContent;
+  thumbnail: string;
+  releaseDate?: string;
+}
+
+export interface FeedResponse {
+  providerName: string;
+  lastUpdated: string;
+  language: string;
+  shortFormVideos: FeedItem[];
+}
