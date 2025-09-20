@@ -19,7 +19,7 @@
     "test": "vitest --run",
     "format.fix": "prettier --write .",
     "typecheck": "tsc",
-    "cap:init": "cap init \"Muziq.Rocks - Electronic Music\" rocks.muziq.electronic --web-dir=dist/spa --npm-client=pnpm",
+    "cap:init": "cap init \"Muziq.Rocks - Electronic Music\" rocks.muziq.electronic --web-dir=dist/spa",
     "cap:add:android": "cap add android",
     "cap:sync": "cap sync android",
     "cap:open:android": "cap open android",
