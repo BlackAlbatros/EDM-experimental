@@ -1,7 +1,7 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "rocks.muziq.electronic",
+  appId: "com.fireappbuilder.android.MuziqRocksEDM",
   appName: "Muziq.Rocks - Electronic Music",
   webDir: "dist/spa",
   server: {
