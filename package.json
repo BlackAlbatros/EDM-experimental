@@ -23,7 +23,8 @@
     "cap:add:android": "cap add android",
     "cap:sync": "cap sync android",
     "cap:open:android": "cap open android",
-    "cap:patch:android": "node scripts/cap-android-patch.mjs"
+    "cap:patch:android": "node scripts/cap-android-patch.mjs",
+    "gen:android:assets": "node scripts/generate-android-assets.mjs"
   },
   "dependencies": {
     "dotenv": "^17.2.1",
