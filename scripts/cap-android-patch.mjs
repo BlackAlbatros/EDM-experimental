@@ -40,8 +40,14 @@ function patch(content) {
     return m.replace(/\d+/, String(Math.max(6, n)));
   });
   // applicationId
-  out = out.replace(/applicationId\s+"[^"]+"/g, 'applicationId "com.fireappbuilder.android.MuziqRocksEDM"');
-  out = out.replace(/applicationId\s*=\s*"[^"]+"/g, 'applicationId = "com.fireappbuilder.android.MuziqRocksEDM"');
+  out = out.replace(
+    /applicationId\s+"[^"]+"/g,
+    'applicationId "com.fireappbuilder.android.MuziqRocksEDM"',
+  );
+  out = out.replace(
+    /applicationId\s*=\s*"[^"]+"/g,
+    'applicationId = "com.fireappbuilder.android.MuziqRocksEDM"',
+  );
   return out;
 }
 
