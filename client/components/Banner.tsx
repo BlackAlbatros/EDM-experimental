@@ -14,7 +14,7 @@ export function Banner({ total }: { total: number }) {
         )}
       />
       <div className="absolute inset-0 bg-black/60" />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-10 text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-10 text-center py-8 md:py-12">
         <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white">
           Muziq.Rocks – Electronic Music
         </h1>
