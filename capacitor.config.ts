@@ -4,7 +4,6 @@ const config: CapacitorConfig = {
   appId: "rocks.muziq.electronic",
   appName: "Muziq.Rocks - Electronic Music",
   webDir: "dist/spa",
-  bundledWebRuntime: false,
   server: {
     androidScheme: "https",
   },
