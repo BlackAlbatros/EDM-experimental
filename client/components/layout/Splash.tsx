@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const LOGO_URL =
-  "https://cdn.builder.io/api/v1/image/assets%2F86cecfe73f914f2393fc7c63dbac01cd%2F165c7c733c6c4dc7bd887d8396d885a9?format=webp&width=800";
+  "https://cdn.builder.io/api/v1/image/assets%2F86cecfe73f914f2393fc7c63dbac01cd%2F5edf1caedd8f4c8392fed5a48727d373?format=webp&width=800";
 
 export function Splash() {
   const [visible, setVisible] = useState(true);
