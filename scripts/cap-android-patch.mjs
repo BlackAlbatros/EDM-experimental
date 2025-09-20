@@ -2,7 +2,12 @@ import fs from "fs";
 import path from "path";
 
 function fileExists(p) {
-  try { fs.accessSync(p); return true; } catch { return false; }
+  try {
+    fs.accessSync(p);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 const androidDir = path.join(process.cwd(), "android");
