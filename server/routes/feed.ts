@@ -18,7 +18,7 @@ export const handleFeed: RequestHandler = async (_req, res) => {
         headers: {
           "cache-control": "no-cache",
           Accept: "application/json",
-          "User-Agent": "MuziqRocks/1.0 (+https://muziq.rocks)"
+          "User-Agent": "MuziqRocks/1.0 (+https://muziq.rocks)",
         },
         signal: ctrl.signal,
       },
@@ -27,13 +27,22 @@ export const handleFeed: RequestHandler = async (_req, res) => {
       const txt = await upstream.text();
       return res
         .status(502)
-        .json({ error: "Failed to fetch upstream feed", status: upstream.status, body: txt?.slice(0, 500) });
+        .json({
+          error: "Failed to fetch upstream feed",
+          status: upstream.status,
+          body: txt?.slice(0, 500),
+        });
     }
     const data = await upstream.json();
     cached = { data, fetchedAt: Date.now() };
     res.status(200).json(data);
   } catch (err: any) {
     console.error("/api/feed error", err);
-    res.status(500).json({ error: "Internal server error", message: String(err?.message || err) });
+    res
+      .status(500)
+      .json({
+        error: "Internal server error",
+        message: String(err?.message || err),
+      });
   }
 };

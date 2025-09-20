@@ -55,7 +55,10 @@ export default function Index() {
 
         {isLoading && <div className="p-6">Loading…</div>}
         {error && (
-          <div className="p-6 text-destructive">Failed to load feed. Please refresh. If it persists, share console/network logs.</div>
+          <div className="p-6 text-destructive">
+            Failed to load feed. Please refresh. If it persists, share
+            console/network logs.
+          </div>
         )}
 
         {q && (
