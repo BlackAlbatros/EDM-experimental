@@ -3,7 +3,11 @@ import type { FeedResponse } from "@shared/api";
 const UPSTREAM =
   "https://clickseffect.com/r7o1k1u130elect/electronicrocksr7o1k1u1303/feed/feed.json";
 
-async function fetchWithTimeout(url: string, opts: RequestInit = {}, ms = 8000) {
+async function fetchWithTimeout(
+  url: string,
+  opts: RequestInit = {},
+  ms = 8000,
+) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), ms);
   try {
@@ -25,10 +29,14 @@ export async function getFeed(): Promise<FeedResponse> {
   } catch {}
 
   // Fallback to upstream (works on device/CAP apps without CORS)
-  const up = await fetchWithTimeout(UPSTREAM, {
-    headers: { Accept: "application/json" },
-    cache: "no-store",
-  }, 12000);
+  const up = await fetchWithTimeout(
+    UPSTREAM,
+    {
+      headers: { Accept: "application/json" },
+      cache: "no-store",
+    },
+    12000,
+  );
   if (!up.ok) throw new Error(`Upstream feed failed: ${up.status}`);
   return (await up.json()) as FeedResponse;
 }
