@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Muziq.Rocks - Electronic Music</string>
+    <string name="title_activity_main">Muziq.Rocks - Electronic Music</string>
+    <string name="package_name">com.fireappbuilder.android.MuziqRocksEDM</string>
+    <string name="custom_url_scheme">com.fireappbuilder.android.MuziqRocksEDM</string>
+</resources>
