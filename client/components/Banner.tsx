@@ -5,7 +5,7 @@ const BANNER_URL =
 
 export function Banner({ total }: { total: number }) {
   return (
-    <section className="relative w-full overflow-hidden rounded-xl">
+    <section className="relative w-full overflow-hidden rounded-xl mt-4 mb-6 md:mt-6 md:mb-8">
       <img
         src={BANNER_URL}
         alt="Electronic Music banner"
