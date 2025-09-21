@@ -8,11 +8,7 @@ export default function CategoryPage() {
   const slug = params.slug ?? "";
   const { data, isLoading, error } = useQuery<FeedResponse>({
     queryKey: ["feed"],
-    queryFn: async () => {
-      const res = await fetch("/api/feed");
-      if (!res.ok) throw new Error("Failed to load feed");
-      return (await res.json()) as FeedResponse;
-    },
+    queryFn: async () => (await (await import("@/lib/feed")).getFeed()),
   });
 
   if (isLoading) return <div className="p-6">Loading…</div>;
