@@ -7,11 +7,7 @@ import { parseDate, slugify, formatDuration } from "@/lib/utils";
 export default function Index() {
   const { data, isLoading, error } = useQuery<FeedResponse>({
     queryKey: ["feed"],
-    queryFn: async () => {
-      const res = await fetch("/api/feed");
-      if (!res.ok) throw new Error("Failed to load feed");
-      return (await res.json()) as FeedResponse;
-    },
+    queryFn: async () => (await (await import("@/lib/feed")).getFeed()),
   });
 
   const [params] = useSearchParams();
