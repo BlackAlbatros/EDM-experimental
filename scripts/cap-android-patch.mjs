@@ -30,15 +30,9 @@ function patch(content) {
     const n = parseInt(m.match(/\d+/)[0], 10);
     return m.replace(/\d+/, String(Math.max(22, n)));
   });
-  // versionCode
-  out = out.replace(/versionCode\s*=\s*\d+/g, (m) => {
-    const n = parseInt(m.match(/\d+/)[0], 10);
-    return m.replace(/\d+/, String(Math.max(6, n)));
-  });
-  out = out.replace(/versionCode\s+\d+/g, (m) => {
-    const n = parseInt(m.match(/\d+/)[0], 10);
-    return m.replace(/\d+/, String(Math.max(6, n)));
-  });
+  // versionCode set to 6
+  out = out.replace(/versionCode\s*=\s*\d+/g, 'versionCode = 6');
+  out = out.replace(/versionCode\s+\d+/g, 'versionCode 6');
   // applicationId
   out = out.replace(
     /applicationId\s+"[^"]+"/g,
