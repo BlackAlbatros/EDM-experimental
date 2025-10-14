@@ -28,13 +28,22 @@ async function fetchWithTimeout(
   opts: RequestInit = {},
   ms = 12_000,
 ) {
+  if (typeof AbortController === "undefined" || ms <= 0) {
+    return fetch(url, opts);
+  }
+
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), ms);
+  const timer = setTimeout(() => ctrl.abort(), ms);
+
   try {
-    const res = await fetch(url, { ...opts, signal: ctrl.signal });
-    return res;
+    return await fetch(url, { ...opts, signal: ctrl.signal });
+  } catch (err: any) {
+    if (err?.name === "AbortError") {
+      return await fetch(url, opts);
+    }
+    throw err;
   } finally {
-    clearTimeout(t);
+    clearTimeout(timer);
   }
 }
 
