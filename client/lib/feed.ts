@@ -69,12 +69,9 @@ export async function getFeed(): Promise<FeedResponse> {
     throw new Error(`Feed request failed${reason}`);
   }
 
-  const upstream = await fetchWithTimeout(
-    UPSTREAM,
-    {
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-    },
-  );
+  const upstream = await fetchWithTimeout(UPSTREAM, {
+    headers: { Accept: "application/json" },
+    cache: "no-store",
+  });
   return await ensureJsonResponse(upstream, "Upstream feed");
 }
