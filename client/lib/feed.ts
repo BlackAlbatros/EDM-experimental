@@ -1,5 +1,7 @@
 import type { FeedResponse } from "@shared/api";
 
+import { Capacitor } from "@capacitor/core";
+
 const UPSTREAM =
   "https://clickseffect.com/r7o1k1u130elect/electronicrocksr7o1k1u1303/feed/feed.json";
 
