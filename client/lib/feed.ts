@@ -72,7 +72,9 @@ async function fetchWithCapacitor(url: string, timeout = 12_000) {
     }
     return res.data as FeedResponse;
   } catch (err) {
-    throw new Error(`CapacitorHttp failed: ${String((err as Error)?.message || err)}`);
+    throw new Error(
+      `CapacitorHttp failed: ${String((err as Error)?.message || err)}`,
+    );
   }
 }
 
