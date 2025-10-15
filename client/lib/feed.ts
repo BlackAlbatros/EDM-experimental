@@ -102,20 +102,25 @@ export async function getFeed(): Promise<FeedResponse> {
     proxyError = err;
   }
 
-  if (!isNativeCapacitor()) {
-    if (proxyError) {
-      console.warn("/api/feed failed, using baked fallback", proxyError);
+  if (isNativeCapacitor()) {
+    try {
+      const nativeData = await fetchWithCapacitor(UPSTREAM, 12_000);
+      if (nativeData) return nativeData;
+    } catch (err) {
+      console.warn("Capacitor native fetch failed", err);
     }
-    return await loadFallbackFeed();
   }
 
-  const upstream = await fetchWithTimeout(UPSTREAM, {
-    headers: { Accept: "application/json" },
-    cache: "no-store",
-  });
   try {
+    const upstream = await fetchWithTimeout(UPSTREAM, {
+      headers: { Accept: "application/json" },
+      cache: "no-store",
+    });
     return await ensureJsonResponse(upstream, "Upstream feed");
   } catch (err) {
+    if (proxyError) {
+      console.warn("/api/feed failed before upstream fallback", proxyError);
+    }
     console.warn("Upstream feed failed, using baked fallback", err);
     return await loadFallbackFeed();
   }
