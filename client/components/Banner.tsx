@@ -23,7 +23,9 @@ export function Banner({ total }: { total: number }) {
         </h1>
         <p className="text-white/90">{formattedTotal} videos</p>
         <p className="max-w-3xl text-sm text-white/90 md:text-base">
-          Dive into the electrifying world of electronic music with Muziq.Rocks, your go-to app for the best in Dance, House, Trance, NU Disco, and EDM.
+          Dive into the electrifying world of electronic music with Muziq.Rocks,
+          your go-to app for the best in Dance, House, Trance, NU Disco, and
+          EDM.
         </p>
       </div>
     </section>

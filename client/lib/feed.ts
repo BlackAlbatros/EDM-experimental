@@ -10,7 +10,8 @@ async function loadFallbackFeed() {
 
   try {
     const mod = await import("@/lib/feed-fallback.json");
-    fallbackCache = (mod as { default?: FeedResponse }).default ?? (mod as FeedResponse);
+    fallbackCache =
+      (mod as { default?: FeedResponse }).default ?? (mod as FeedResponse);
     return fallbackCache;
   } catch (err) {
     throw new Error(
