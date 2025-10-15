@@ -82,7 +82,7 @@ export async function getFeed(): Promise<FeedResponse> {
     proxyError = err;
   }
 
-  if (!canUseDirectUpstream()) {
+  if (!isNativeCapacitor()) {
     if (proxyError) {
       console.warn("/api/feed failed, using baked fallback", proxyError);
     }
