@@ -24,21 +24,9 @@ async function loadFallbackFeed() {
   }
 }
 
-function canUseDirectUpstream() {
-  if (typeof window === "undefined") return true;
-  const cap = (window as unknown as { Capacitor?: any })?.Capacitor;
-  if (!cap) return false;
-
-  if (typeof cap.isNativePlatform === "function") {
-    try {
-      return Boolean(cap.isNativePlatform());
-    } catch {}
-  }
-
+function isNativeCapacitor() {
   try {
-    const platform =
-      typeof cap.getPlatform === "function" ? cap.getPlatform() : cap.platform;
-    return platform && platform !== "web";
+    return Boolean(Capacitor?.isNativePlatform?.());
   } catch {
     return false;
   }
