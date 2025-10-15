@@ -42,12 +42,10 @@ export default function CategoryPage() {
 }
 
 function VideoCard({ item }: { item: FeedItem }) {
-  const videoUrl = item.content.videos?.[0]?.url;
+  const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
-    <a
-      href={videoUrl}
-      target="_blank"
-      rel="noreferrer"
+    <Link
+      to={watchHref}
       className="group block overflow-hidden rounded-lg border bg-card hover:shadow-lg transition relative"
     >
       <img
@@ -61,6 +59,6 @@ function VideoCard({ item }: { item: FeedItem }) {
       <div className="p-3">
         <h3 className="line-clamp-2 font-medium">{item.title}</h3>
       </div>
-    </a>
+    </Link>
   );
 }
