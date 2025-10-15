@@ -56,6 +56,26 @@ async function fetchWithTimeout(
   }
 }
 
+async function fetchWithCapacitor(url: string, timeout = 12_000) {
+  if (!isNativeCapacitor()) return null;
+  try {
+    const { CapacitorHttp } = await import("@capacitor/core");
+    const res = await CapacitorHttp.get({
+      url,
+      headers: { Accept: "application/json" },
+      responseType: "json",
+      readTimeout: timeout,
+      connectTimeout: timeout,
+    });
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    return res.data as FeedResponse;
+  } catch (err) {
+    throw new Error(`CapacitorHttp failed: ${String((err as Error)?.message || err)}`);
+  }
+}
+
 async function ensureJsonResponse(res: Response, context: string) {
   if (!res.ok) {
     let body: string | undefined;
