@@ -110,12 +110,10 @@ export default function Index() {
 }
 
 function VideoCard({ item }: { item: FeedItem }) {
-  const videoUrl = item.content.videos?.[0]?.url;
+  const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
-    <a
-      href={videoUrl}
-      target="_blank"
-      rel="noreferrer"
+    <Link
+      to={watchHref}
       className="group block overflow-hidden rounded-xl border bg-card hover:shadow-lg transition relative"
     >
       <img
@@ -132,6 +130,6 @@ function VideoCard({ item }: { item: FeedItem }) {
           {new Date(item.content.dateAdded).toLocaleDateString()}
         </p>
       </div>
-    </a>
+    </Link>
   );
 }
