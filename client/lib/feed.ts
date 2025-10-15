@@ -3,6 +3,24 @@ import type { FeedResponse } from "@shared/api";
 const UPSTREAM =
   "https://clickseffect.com/r7o1k1u130elect/electronicrocksr7o1k1u1303/feed/feed.json";
 
+let fallbackCache: FeedResponse | null = null;
+
+async function loadFallbackFeed() {
+  if (fallbackCache) return fallbackCache;
+
+  try {
+    const mod = await import("@/lib/feed-fallback.json");
+    fallbackCache = (mod as { default?: FeedResponse }).default ?? (mod as FeedResponse);
+    return fallbackCache;
+  } catch (err) {
+    throw new Error(
+      `Feed failed and local fallback could not load: ${String(
+        (err as Error)?.message ?? err,
+      )}`,
+    );
+  }
+}
+
 function canUseDirectUpstream() {
   if (typeof window === "undefined") return true;
   const cap = (window as unknown as { Capacitor?: any })?.Capacitor;
@@ -74,13 +92,20 @@ export async function getFeed(): Promise<FeedResponse> {
   }
 
   if (!canUseDirectUpstream()) {
-    const reason = proxyError instanceof Error ? `: ${proxyError.message}` : "";
-    throw new Error(`Feed request failed${reason}`);
+    if (proxyError) {
+      console.warn("/api/feed failed, using baked fallback", proxyError);
+    }
+    return await loadFallbackFeed();
   }
 
   const upstream = await fetchWithTimeout(UPSTREAM, {
     headers: { Accept: "application/json" },
     cache: "no-store",
   });
-  return await ensureJsonResponse(upstream, "Upstream feed");
+  try {
+    return await ensureJsonResponse(upstream, "Upstream feed");
+  } catch (err) {
+    console.warn("Upstream feed failed, using baked fallback", err);
+    return await loadFallbackFeed();
+  }
 }
