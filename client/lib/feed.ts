@@ -59,7 +59,12 @@ async function fetchWithTimeout(
 async function fetchWithCapacitor(url: string, timeout = 12_000) {
   if (!isNativeCapacitor()) return null;
   try {
-    const { CapacitorHttp } = await import("@capacitor/core");
+    const core = await import("@capacitor/core");
+    const CapacitorHttp =
+      (core as any).CapacitorHttp ?? (core as any).Plugins?.Http ?? null;
+    if (!CapacitorHttp?.get) {
+      return null;
+    }
     const res = await CapacitorHttp.get({
       url,
       headers: { Accept: "application/json" },
