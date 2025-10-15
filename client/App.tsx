@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CategoryPage from "./pages/Category";
+import WatchPage from "./pages/Watch";
 import { Header } from "./components/layout/Header";
 import { Splash } from "./components/layout/Splash";
 
@@ -25,6 +26,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/category/:slug" element={<CategoryPage />} />
+          <Route path="/watch/:id" element={<WatchPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
