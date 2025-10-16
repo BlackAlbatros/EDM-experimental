@@ -1,5 +1,6 @@
 import type { FeedResponse } from "@shared/api";
 import { useQuery } from "@tanstack/react-query";
+import type { FeedResponse } from "@shared/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function WatchPage() {
