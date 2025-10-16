@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { FeedResponse, FeedItem } from "@shared/api";
+import type { FeedItem } from "@shared/api";
 import { Banner } from "@/components/Banner";
 import { Link, useSearchParams } from "react-router-dom";
 import { parseDate, slugify, formatDuration } from "@/lib/utils";
