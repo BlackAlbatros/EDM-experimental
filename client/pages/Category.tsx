@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
