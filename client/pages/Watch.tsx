@@ -1,17 +1,13 @@
 import type { FeedResponse } from "@shared/api";
-import { useQuery } from "@tanstack/react-query";
-import type { FeedResponse } from "@shared/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useFeedQuery } from "@/hooks/use-feed-query";
 
 export default function WatchPage() {
   const navigate = useNavigate();
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
 
-  const { data, isLoading, error } = useQuery<FeedResponse>({
-    queryKey: ["feed"],
-    queryFn: async () => await (await import("@/lib/feed")).getFeed(),
-  });
+  const { data, isLoading, error } = useFeedQuery();
 
   if (!videoId) {
     return (
