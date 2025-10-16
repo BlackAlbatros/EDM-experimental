@@ -1,16 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import type { FeedResponse, FeedItem } from "@shared/api";
+import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
+import { useFeedQuery } from "@/hooks/use-feed-query";
 
 export default function CategoryPage() {
   const params = useParams();
   const slug = params.slug ?? "";
-  const { data, isLoading, error } = useQuery<FeedResponse>({
-    queryKey: ["feed"],
-    queryFn: async () => await (await import("@/lib/feed")).getFeed(),
-  });
+  const { data, isLoading, error } = useFeedQuery();
 
   if (isLoading) return <div className="p-6">Loading…</div>;
   if (error || !data) return <div className="p-6">Failed to load.</div>;
