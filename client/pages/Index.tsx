@@ -1,15 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useQuery } from "@tanstack/react-query";
 import type { FeedResponse, FeedItem } from "@shared/api";
 import { Banner } from "@/components/Banner";
 import { Link, useSearchParams } from "react-router-dom";
 import { parseDate, slugify, formatDuration } from "@/lib/utils";
+import { useFeedQuery } from "@/hooks/use-feed-query";
 
 export default function Index() {
-  const { data, isLoading, error } = useQuery<FeedResponse>({
-    queryKey: ["feed"],
-    queryFn: async () => await (await import("@/lib/feed")).getFeed(),
-  });
+  const { data, isLoading, error } = useFeedQuery();
 
   const [params] = useSearchParams();
   const q = (params.get("q") ?? "").trim().toLowerCase();
