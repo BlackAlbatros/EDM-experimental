@@ -1,4 +1,3 @@
-import type { FeedResponse } from "@shared/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFeedQuery } from "@/hooks/use-feed-query";
 
