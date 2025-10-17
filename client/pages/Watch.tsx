@@ -1,12 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { useGeoLocation } from "@/hooks/use-geo-location";
+import { EngageAds } from "@/components/EngageAds";
 import { Capacitor } from "@capacitor/core";
 
 export default function WatchPage() {
   const navigate = useNavigate();
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
+  const [showControls, setShowControls] = useState(false);
+  const [showAds, setShowAds] = useState(false);
+  const { isUSA, loading: geoLoading, error: geoError } = useGeoLocation();
+
+  useEffect(() => {
+    if (!geoLoading) {
+      if (isUSA) {
+        setShowAds(true);
+      } else {
+        navigate("/watch/" + encodeURIComponent(videoId), { replace: true });
+      }
+    }
+  }, [isUSA, geoLoading, videoId, navigate]);
 
   useEffect(() => {
     const handleBackButton = async () => {
@@ -27,6 +42,22 @@ export default function WatchPage() {
     };
     handleBackButton();
   }, [navigate]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Fire TV remote center/select button (Enter key)
+      if (e.key === "Enter" || e.key === " ") {
+        setShowControls((prev) => !prev);
+      }
+      // ESC to hide controls
+      if (e.key === "Escape") {
+        setShowControls(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const { data, isLoading, error } = useFeedQuery();
 
@@ -79,6 +110,22 @@ export default function WatchPage() {
 
   const source = video.content?.videos?.[0]?.url;
 
+  if (geoLoading) {
+    return (
+      <div className="fixed inset-0 bg-black flex items-center justify-center text-white">
+        Loading...
+      </div>
+    );
+  }
+
+  if (showAds && isUSA) {
+    return (
+      <div className="fixed inset-0 z-50">
+        <EngageAds onAdClose={() => setShowAds(false)} />
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-black">
       {source ? (
@@ -94,21 +141,23 @@ export default function WatchPage() {
           >
             Your browser does not support HTML5 video.
           </video>
-          <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-gradient-to-t from-black to-transparent p-4">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="rounded-md bg-white/20 px-3 py-2 text-sm font-medium text-white hover:bg-white/30"
-            >
-              ← Back
-            </button>
-            <Link
-              to="/"
-              className="rounded-md bg-white/20 px-3 py-2 text-sm font-medium text-white hover:bg-white/30"
-            >
-              Home
-            </Link>
-          </div>
+          {showControls && (
+            <div className="absolute bottom-16 left-0 right-0 flex items-center gap-2 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-4 pb-6">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="rounded-md bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50"
+              >
+                ← Back
+              </button>
+              <Link
+                to="/"
+                className="rounded-md bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50"
+              >
+                Home
+              </Link>
+            </div>
+          )}
         </>
       ) : (
         <div className="flex flex-col items-center justify-center space-y-4">

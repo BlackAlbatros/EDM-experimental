@@ -22,6 +22,14 @@ export default function Index() {
     });
   }
 
+  // Get latest videos sorted by date
+  const latestVideos = data?.shortFormVideos
+    ? [...data.shortFormVideos].sort(
+        (a, b) =>
+          parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
+      )
+    : [];
+
   // Group by first tag (category)
   const byCategory = new Map<string, FeedItem[]>();
   if (!q && data?.shortFormVideos) {
@@ -78,6 +86,19 @@ export default function Index() {
                 ))}
               </div>
             )}
+          </section>
+        )}
+
+        {!q && latestVideos.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
+              <h2 className="text-lg md:text-xl font-bold">Latest</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {latestVideos.slice(0, 3).map((item) => (
+                <VideoCard key={item.id} item={item} />
+              ))}
+            </div>
           </section>
         )}
 
