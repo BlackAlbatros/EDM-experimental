@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
-import { Header } from "@/components/layout/Header";
 
 export default function CategoryPage() {
   const params = useParams();
@@ -18,8 +17,7 @@ export default function CategoryPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
-      <Header />
+    <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
       <div className="container mx-auto px-4 py-6">
         <div className="mb-6 flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
           <h2 className="text-xl md:text-2xl font-bold capitalize">
@@ -38,7 +36,7 @@ export default function CategoryPage() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
