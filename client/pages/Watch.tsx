@@ -12,11 +12,14 @@ export default function WatchPage() {
     const handleBackButton = async () => {
       if (Capacitor?.isNativePlatform?.()) {
         try {
-          const { App } = await import("@capacitor/app");
-          const listener = App?.addListener?.("backButton", () => {
-            navigate(-1);
-            listener?.remove?.();
-          });
+          const core = await import("@capacitor/core");
+          const AppClass = (core as any).App;
+          if (AppClass?.addListener) {
+            const listener = AppClass.addListener("backButton", () => {
+              navigate(-1);
+              listener?.remove?.();
+            });
+          }
         } catch (err) {
           console.warn("Back button handler setup failed", err);
         }
