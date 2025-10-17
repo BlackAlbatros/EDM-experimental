@@ -10,6 +10,8 @@ export default function WatchPage() {
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
   const [showControls, setShowControls] = useState(false);
+  const [showAds, setShowAds] = useState(false);
+  const { isUSA, loading: geoLoading, error: geoError } = useGeoLocation();
 
   useEffect(() => {
     const handleBackButton = async () => {
