@@ -22,6 +22,14 @@ export default function Index() {
     });
   }
 
+  // Get latest videos sorted by date
+  const latestVideos = data?.shortFormVideos
+    ? [...data.shortFormVideos].sort(
+        (a, b) =>
+          parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
+      )
+    : [];
+
   // Group by first tag (category)
   const byCategory = new Map<string, FeedItem[]>();
   if (!q && data?.shortFormVideos) {
