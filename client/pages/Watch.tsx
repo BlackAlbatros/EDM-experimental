@@ -1,10 +1,29 @@
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { Capacitor } from "@capacitor/core";
 
 export default function WatchPage() {
   const navigate = useNavigate();
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
+
+  useEffect(() => {
+    const handleBackButton = async () => {
+      if (Capacitor?.isNativePlatform?.()) {
+        try {
+          const { App } = await import("@capacitor/app");
+          const listener = App?.addListener?.("backButton", () => {
+            navigate(-1);
+            listener?.remove?.();
+          });
+        } catch (err) {
+          console.warn("Back button handler setup failed", err);
+        }
+      }
+    };
+    handleBackButton();
+  }, [navigate]);
 
   const { data, isLoading, error } = useFeedQuery();
 
@@ -58,56 +77,48 @@ export default function WatchPage() {
   const source = video.content?.videos?.[0]?.url;
 
   return (
-    <div className="container mx-auto px-4 py-6 space-y-6">
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
-        >
-          ← Back
-        </button>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
-        >
-          Home
-        </Link>
-      </div>
-
-      <div className="space-y-4">
-        <div className="overflow-hidden rounded-2xl bg-black">
-          {source ? (
-            <video
-              key={video.id}
-              controls
-              autoPlay
-              playsInline
-              poster={video.thumbnail ?? undefined}
-              className="aspect-video w-full"
-              src={source}
+    <div className="fixed inset-0 z-50 flex flex-col bg-black">
+      {source ? (
+        <>
+          <video
+            key={video.id}
+            controls
+            autoPlay
+            playsInline
+            poster={video.thumbnail ?? undefined}
+            className="h-full w-full"
+            src={source}
+          >
+            Your browser does not support HTML5 video.
+          </video>
+          <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-gradient-to-t from-black to-transparent p-4">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="rounded-md bg-white/20 px-3 py-2 text-sm font-medium text-white hover:bg-white/30"
             >
-              Your browser does not support HTML5 video.
-            </video>
-          ) : (
-            <div className="p-6 text-destructive">
-              No video source available for this item.
-            </div>
-          )}
-        </div>
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold md:text-3xl">{video.title}</h1>
-          {video.shortDescription && (
-            <p className="text-sm text-muted-foreground md:text-base">
-              {video.shortDescription}
-            </p>
-          )}
-          <div className="text-xs text-muted-foreground md:text-sm">
-            <span className="font-medium">Published:</span>{" "}
-            {new Date(video.content?.dateAdded ?? Date.now()).toLocaleDateString()}
+              ← Back
+            </button>
+            <Link
+              to="/"
+              className="rounded-md bg-white/20 px-3 py-2 text-sm font-medium text-white hover:bg-white/30"
+            >
+              Home
+            </Link>
           </div>
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <p className="text-white">No video source available for this item.</p>
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="rounded-md bg-white/20 px-3 py-2 text-sm font-medium text-white hover:bg-white/30"
+          >
+            ← Back
+          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }
