@@ -14,6 +14,16 @@ export default function WatchPage() {
   const { isUSA, loading: geoLoading, error: geoError } = useGeoLocation();
 
   useEffect(() => {
+    if (!geoLoading) {
+      if (isUSA) {
+        setShowAds(true);
+      } else {
+        navigate("/watch/" + encodeURIComponent(videoId), { replace: true });
+      }
+    }
+  }, [isUSA, geoLoading, videoId, navigate]);
+
+  useEffect(() => {
     const handleBackButton = async () => {
       if (Capacitor?.isNativePlatform?.()) {
         try {
