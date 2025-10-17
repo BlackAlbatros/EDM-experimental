@@ -111,7 +111,11 @@ export default function WatchPage() {
   const source = video.content?.videos?.[0]?.url;
 
   if (geoLoading) {
-    return <div className="fixed inset-0 bg-black flex items-center justify-center text-white">Loading...</div>;
+    return (
+      <div className="fixed inset-0 bg-black flex items-center justify-center text-white">
+        Loading...
+      </div>
+    );
   }
 
   if (showAds && isUSA) {

@@ -51,7 +51,7 @@ export function EngageAds({ onAdClose }: EngageAdsProps) {
 
     return () => {
       const script = document.querySelector(
-        `script[src="https://ads.engage.so/ads.js"]`
+        `script[src="https://ads.engage.so/ads.js"]`,
       );
       if (script) {
         script.remove();

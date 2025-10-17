@@ -39,7 +39,8 @@ export function useGeoLocation(): GeoLocation {
           isUSA: false,
           country: null,
           loading: false,
-          error: error instanceof Error ? error.message : "Failed to fetch location",
+          error:
+            error instanceof Error ? error.message : "Failed to fetch location",
         });
       }
     };
