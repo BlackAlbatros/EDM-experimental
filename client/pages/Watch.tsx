@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { useGeoLocation } from "@/hooks/use-geo-location";
+import { EngageAds } from "@/components/EngageAds";
 import { Capacitor } from "@capacitor/core";
 
 export default function WatchPage() {
