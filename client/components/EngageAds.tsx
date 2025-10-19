@@ -20,7 +20,8 @@ export function EngageAds({ onAdClose }: EngageAdsProps) {
     const loadEngageAdsSDK = () => {
       const script = document.createElement("script");
       script.async = true;
-      script.src = "https://ads.engage.so/ads.js";
+      // Load SDK with query parameters for channel and publisher
+      script.src = `https://ads.engage.so/ads.js?channel=${CHANNEL}&publisher=${PUBLISHER}&debug=${DEBUG ? "true" : "false"}`;
       script.dataset.channel = CHANNEL;
       script.dataset.publisher = PUBLISHER;
       script.dataset.debug = DEBUG ? "true" : "false";
