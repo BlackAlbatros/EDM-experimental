@@ -14,9 +14,12 @@ export default function WatchPage() {
 
   useEffect(() => {
     if (!geoLoading) {
+      console.log("[Watch] Geo check complete:", { isUSA, geoLoading });
       if (isUSA) {
+        console.log("[Watch] User is in USA, showing ads");
         setShowAds(true);
       } else {
+        console.log("[Watch] User is NOT in USA, showing video directly");
         navigate("/watch/" + encodeURIComponent(videoId), { replace: true });
       }
     }
