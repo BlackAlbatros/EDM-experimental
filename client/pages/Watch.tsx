@@ -42,21 +42,6 @@ export default function WatchPage() {
     handleBackButton();
   }, [navigate]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Fire TV remote center/select button (Enter key)
-      if (e.key === "Enter" || e.key === " ") {
-        setShowControls((prev) => !prev);
-      }
-      // ESC to hide controls
-      if (e.key === "Escape") {
-        setShowControls(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   const { data, isLoading, error } = useFeedQuery();
 
