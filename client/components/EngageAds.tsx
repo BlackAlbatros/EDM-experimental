@@ -28,16 +28,26 @@ export function EngageAds({ onAdClose }: EngageAdsProps) {
       script.onload = () => {
         if (DEBUG) {
           console.log("[EngageAds] SDK script loaded successfully");
-          console.log("[EngageAds] Window object has __engage_ads_sdk:", !!window.__engage_ads_sdk);
+          console.log(
+            "[EngageAds] Window object has __engage_ads_sdk:",
+            !!window.__engage_ads_sdk,
+          );
           console.log("[EngageAds] Global context:", {
             hasEngage: !!window.engage,
             hasEngageAds: !!window.EngageAds,
-            allWindowKeys: Object.keys(window).filter(k => k.toLowerCase().includes('engage') || k.toLowerCase().includes('ad'))
+            allWindowKeys: Object.keys(window).filter(
+              (k) =>
+                k.toLowerCase().includes("engage") ||
+                k.toLowerCase().includes("ad"),
+            ),
           });
         }
 
         // Try different SDK namespaces
-        const sdk = window.__engage_ads_sdk || (window as any).engage || (window as any).EngageAds;
+        const sdk =
+          window.__engage_ads_sdk ||
+          (window as any).engage ||
+          (window as any).EngageAds;
 
         if (sdk) {
           if (DEBUG) {
@@ -45,7 +55,7 @@ export function EngageAds({ onAdClose }: EngageAdsProps) {
           }
 
           const initMethod = sdk.init || sdk;
-          if (typeof initMethod === 'function') {
+          if (typeof initMethod === "function") {
             initMethod({
               channel: CHANNEL,
               publisher: PUBLISHER,
@@ -57,7 +67,12 @@ export function EngageAds({ onAdClose }: EngageAdsProps) {
           }
         } else if (DEBUG) {
           console.warn("[EngageAds] SDK not found on window after script load");
-          console.log("[EngageAds] Window object keys:", Object.getOwnPropertyNames(window).filter(k => k.length < 30).sort());
+          console.log(
+            "[EngageAds] Window object keys:",
+            Object.getOwnPropertyNames(window)
+              .filter((k) => k.length < 30)
+              .sort(),
+          );
         }
       };
 

@@ -42,7 +42,6 @@ export default function WatchPage() {
     handleBackButton();
   }, [navigate]);
 
-
   const { data, isLoading, error } = useFeedQuery();
 
   if (!videoId) {
