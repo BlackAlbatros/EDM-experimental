@@ -27,21 +27,42 @@ export function EngageAds({ onAdClose }: EngageAdsProps) {
 
       script.onload = () => {
         if (DEBUG) {
-          console.log("[EngageAds] SDK loaded successfully");
+          console.log("[EngageAds] SDK script loaded successfully");
+          console.log("[EngageAds] Window object has __engage_ads_sdk:", !!window.__engage_ads_sdk);
+          console.log("[EngageAds] Global context:", {
+            hasEngage: !!window.engage,
+            hasEngageAds: !!window.EngageAds,
+            allWindowKeys: Object.keys(window).filter(k => k.toLowerCase().includes('engage') || k.toLowerCase().includes('ad'))
+          });
         }
 
-        if (window.__engage_ads_sdk) {
-          window.__engage_ads_sdk.init({
-            channel: CHANNEL,
-            publisher: PUBLISHER,
-            debug: DEBUG,
-            onClose: onAdClose,
-          });
+        // Try different SDK namespaces
+        const sdk = window.__engage_ads_sdk || (window as any).engage || (window as any).EngageAds;
+
+        if (sdk) {
+          if (DEBUG) {
+            console.log("[EngageAds] SDK found, initializing...");
+          }
+
+          const initMethod = sdk.init || sdk;
+          if (typeof initMethod === 'function') {
+            initMethod({
+              channel: CHANNEL,
+              publisher: PUBLISHER,
+              debug: DEBUG,
+              onClose: onAdClose,
+            });
+          } else if (DEBUG) {
+            console.warn("[EngageAds] SDK init is not a function", initMethod);
+          }
+        } else if (DEBUG) {
+          console.warn("[EngageAds] SDK not found on window after script load");
+          console.log("[EngageAds] Window object keys:", Object.getOwnPropertyNames(window).filter(k => k.length < 30).sort());
         }
       };
 
       script.onerror = () => {
-        console.error("[EngageAds] Failed to load SDK");
+        console.error("[EngageAds] Failed to load SDK from", script.src);
       };
 
       document.head.appendChild(script);
