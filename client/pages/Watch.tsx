@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFeedQuery } from "@/hooks/use-feed-query";
-import { useGeoLocation } from "@/hooks/use-geo-location";
-import { EngageAds } from "@/components/EngageAds";
 import { Capacitor } from "@capacitor/core";
 
 export default function WatchPage() {
@@ -110,22 +108,6 @@ export default function WatchPage() {
   }
 
   const source = video.content?.videos?.[0]?.url;
-
-  if (geoLoading) {
-    return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center text-white">
-        Loading...
-      </div>
-    );
-  }
-
-  if (showAds && isUSA) {
-    return (
-      <div className="fixed inset-0 z-50">
-        <EngageAds onAdClose={() => setShowAds(false)} />
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-black">
