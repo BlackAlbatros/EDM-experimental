@@ -19,13 +19,18 @@ export function useGeoLocation(): GeoLocation {
   useEffect(() => {
     const fetchGeoLocation = async () => {
       try {
+        console.log("[GeoLocation] Starting geolocation fetch...");
         const response = await axios.get("https://ipapi.co/json/");
         const country = response.data.country_code;
         const isUSA = country === "US";
 
-        if (process.env.NODE_ENV === "development") {
-          console.log("[GeoLocation Debug]", { country, isUSA });
-        }
+        console.log("[GeoLocation] Location data received:", {
+          country,
+          isUSA,
+          countryName: response.data.country_name,
+          city: response.data.city,
+          fullData: response.data,
+        });
 
         setGeoLocation({
           isUSA,
@@ -34,7 +39,7 @@ export function useGeoLocation(): GeoLocation {
           error: null,
         });
       } catch (error) {
-        console.error("[GeoLocation Error]", error);
+        console.error("[GeoLocation] Error fetching location:", error);
         setGeoLocation({
           isUSA: false,
           country: null,
