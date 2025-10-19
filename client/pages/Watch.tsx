@@ -9,9 +9,8 @@ export default function WatchPage() {
   const navigate = useNavigate();
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
-  const [showControls, setShowControls] = useState(false);
   const [showAds, setShowAds] = useState(false);
-  const { isUSA, loading: geoLoading, error: geoError } = useGeoLocation();
+  const { isUSA, loading: geoLoading } = useGeoLocation();
 
   useEffect(() => {
     if (!geoLoading) {
