@@ -7,36 +7,6 @@ export default function WatchPage() {
   const navigate = useNavigate();
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
-  const [showAds, setShowAds] = useState(false);
-  const { isUSA, loading: geoLoading } = useGeoLocation();
-
-  // DEBUG MODE: Set to true to show ads for all locations
-  const DEBUG_FORCE_ADS = true;
-
-  useEffect(() => {
-    if (!geoLoading) {
-      console.log("[Watch] Geo check complete:", {
-        isUSA,
-        geoLoading,
-        DEBUG_FORCE_ADS,
-      });
-      if (DEBUG_FORCE_ADS || isUSA) {
-        console.log(
-          "[Watch] Showing ads (DEBUG_FORCE_ADS:",
-          DEBUG_FORCE_ADS,
-          "isUSA:",
-          isUSA,
-          ")",
-        );
-        setShowAds(true);
-      } else {
-        console.log(
-          "[Watch] User is NOT in USA and DEBUG is off, showing video directly",
-        );
-        navigate("/watch/" + encodeURIComponent(videoId), { replace: true });
-      }
-    }
-  }, [isUSA, geoLoading, videoId, navigate]);
 
   useEffect(() => {
     const handleBackButton = async () => {
