@@ -17,12 +17,24 @@ export default function WatchPage() {
 
   useEffect(() => {
     if (!geoLoading) {
-      console.log("[Watch] Geo check complete:", { isUSA, geoLoading, DEBUG_FORCE_ADS });
+      console.log("[Watch] Geo check complete:", {
+        isUSA,
+        geoLoading,
+        DEBUG_FORCE_ADS,
+      });
       if (DEBUG_FORCE_ADS || isUSA) {
-        console.log("[Watch] Showing ads (DEBUG_FORCE_ADS:", DEBUG_FORCE_ADS, "isUSA:", isUSA, ")");
+        console.log(
+          "[Watch] Showing ads (DEBUG_FORCE_ADS:",
+          DEBUG_FORCE_ADS,
+          "isUSA:",
+          isUSA,
+          ")",
+        );
         setShowAds(true);
       } else {
-        console.log("[Watch] User is NOT in USA and DEBUG is off, showing video directly");
+        console.log(
+          "[Watch] User is NOT in USA and DEBUG is off, showing video directly",
+        );
         navigate("/watch/" + encodeURIComponent(videoId), { replace: true });
       }
     }
