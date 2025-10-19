@@ -19,16 +19,18 @@ export default function CategoryPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
       <div className="container mx-auto px-4 py-6">
-        <div className="mb-6 flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
+        <div className="mb-6">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 mb-4"
+          >
+            ← Back to Home
+          </Link>
+        </div>
+        <div className="mb-6 rounded-md bg-black/30 px-3 py-2">
           <h2 className="text-xl md:text-2xl font-bold capitalize">
             {slug.replace(/-/g, " ")}
           </h2>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
-          >
-            ← Back
-          </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {items.map((item) => (
