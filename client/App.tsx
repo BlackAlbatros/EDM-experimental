@@ -53,24 +53,12 @@ function AppContent() {
   );
 }
 
-const App = () => (
+const AppWrapper = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Splash />
-        <Header />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/category/:slug" element={<CategoryPage />} />
-          <Route path="/watch/:id" element={<WatchPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(<AppWrapper />);
