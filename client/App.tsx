@@ -13,7 +13,6 @@ import CategoryPage from "./pages/Category";
 import WatchPage from "./pages/Watch";
 import { Header } from "./components/layout/Header";
 import { Splash } from "./components/layout/Splash";
-import { App as CapApp } from "@capacitor/app";
 
 const queryClient = new QueryClient();
 
@@ -22,17 +21,31 @@ function AppContent() {
 
   useEffect(() => {
     // Handle Capacitor back button (Fire TV remote back button)
-    const handleBackButton = CapApp.addListener("backButton", ({ canGoBack }) => {
-      if (canGoBack) {
-        navigate(-1);
-      } else {
-        // At root, don't close the app - stay on the page
-        // This prevents the app from closing unexpectedly
+    const setupBackButton = async () => {
+      try {
+        const { App } = await import("@capacitor/app");
+        const listener = await App.addListener("backButton", ({ canGoBack }) => {
+          if (canGoBack) {
+            navigate(-1);
+          } else {
+            // At root, don't close the app - stay on the page
+            // This prevents the app from closing unexpectedly
+          }
+        });
+        return listener;
+      } catch (err) {
+        // Not in Capacitor environment, skip setup
+        return null;
       }
+    };
+
+    let listener: any;
+    setupBackButton().then((l) => {
+      listener = l;
     });
 
     return () => {
-      handleBackButton.remove();
+      listener?.remove?.();
     };
   }, [navigate]);
 
