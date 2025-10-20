@@ -1,32 +1,10 @@
-import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFeedQuery } from "@/hooks/use-feed-query";
-import { Capacitor } from "@capacitor/core";
 
 export default function WatchPage() {
   const navigate = useNavigate();
   const params = useParams<{ id?: string }>();
   const videoId = params.id ? decodeURIComponent(params.id) : "";
-
-  useEffect(() => {
-    const handleBackButton = async () => {
-      if (Capacitor?.isNativePlatform?.()) {
-        try {
-          const core = await import("@capacitor/core");
-          const AppClass = (core as any).App;
-          if (AppClass?.addListener) {
-            const listener = AppClass.addListener("backButton", () => {
-              navigate(-1);
-              listener?.remove?.();
-            });
-          }
-        } catch (err) {
-          console.warn("Back button handler setup failed", err);
-        }
-      }
-    };
-    handleBackButton();
-  }, [navigate]);
 
   const { data, isLoading, error } = useFeedQuery();
 
