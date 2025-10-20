@@ -1,41 +1,18 @@
 import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
-import { Capacitor } from "@capacitor/core";
 
 export default function CategoryPage() {
   const params = useParams();
   const slug = params.slug ?? "";
-  const navigate = useNavigate();
   const { data, isLoading, error } = useFeedQuery();
 
   useEffect(() => {
     // Scroll to top when category page loads
     window.scrollTo(0, 0);
   }, [slug]);
-
-  useEffect(() => {
-    // Handle back button on Capacitor (Fire TV remote)
-    const handleBackButton = async () => {
-      if (Capacitor?.isNativePlatform?.()) {
-        try {
-          const core = await import("@capacitor/core");
-          const AppClass = (core as any).App;
-          if (AppClass?.addListener) {
-            const listener = AppClass.addListener("backButton", () => {
-              navigate(-1);
-              listener?.remove?.();
-            });
-          }
-        } catch (err) {
-          console.warn("Back button handler setup failed", err);
-        }
-      }
-    };
-    handleBackButton();
-  }, [navigate]);
 
   if (isLoading) return <div className="p-6">Loading…</div>;
   if (error || !data) return <div className="p-6">Failed to load.</div>;
