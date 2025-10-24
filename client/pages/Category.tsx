@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function CategoryPage() {
   const [activeVideoId, setActiveVideoId] = useState<string>("");
