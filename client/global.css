@@ -104,22 +104,7 @@
     @apply border-border;
   }
 
-  html {
-    transform: none;
-  }
-
   body {
     @apply bg-background text-foreground;
-    transform: none;
-  }
-
-  header {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    transform: none !important;
-    will-change: auto !important;
   }
 }
