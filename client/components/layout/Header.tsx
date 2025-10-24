@@ -9,6 +9,10 @@ export function Header() {
   const [q, setQ] = useState(params.get("q") ?? "");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setQ(params.get("q") ?? "");
+  }, [params]);
+
   function applySearch(value: string) {
     setQ(value);
     navigate(
