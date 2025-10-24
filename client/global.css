@@ -107,4 +107,9 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  header[class*="fixed"] {
+    position: fixed !important;
+    transform: none !important;
+  }
 }
