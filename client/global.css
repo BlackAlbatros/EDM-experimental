@@ -104,8 +104,13 @@
     @apply border-border;
   }
 
+  html {
+    transform: none;
+  }
+
   body {
     @apply bg-background text-foreground;
+    transform: none;
   }
 
   header.fixed {
