@@ -37,8 +37,8 @@ export default function CategoryPage() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20 pt-20">
-      <div className="container mx-auto px-4 py-6">
+    <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
+      <div className="container mx-auto px-4 py-6" style={{ marginTop: "80px" }}>
         <div className="mb-6">
           <Link
             to="/"
