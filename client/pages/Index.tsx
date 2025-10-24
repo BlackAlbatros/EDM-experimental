@@ -3,9 +3,11 @@ import { Banner } from "@/components/Banner";
 import { Link, useSearchParams } from "react-router-dom";
 import { parseDate, slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { useState } from "react";
 
 export default function Index() {
   const { data, isLoading, error } = useFeedQuery();
+  const [activeVideoId, setActiveVideoId] = useState<string>("");
 
   const [params] = useSearchParams();
   const q = (params.get("q") ?? "").trim().toLowerCase();
@@ -21,6 +23,14 @@ export default function Index() {
       return hay.includes(q);
     });
   }
+
+  // Get latest videos sorted by date
+  const latestVideos = data?.shortFormVideos
+    ? [...data.shortFormVideos].sort(
+        (a, b) =>
+          parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
+      ).slice(0, 3)
+    : [];
 
   // Group by first tag (category)
   const byCategory = new Map<string, FeedItem[]>();
@@ -40,6 +50,11 @@ export default function Index() {
         parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
     ),
   }));
+
+  // Set active video to first latest video on mount
+  if (!activeVideoId && latestVideos.length > 0) {
+    setActiveVideoId(latestVideos[0].id);
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20 pt-20">
