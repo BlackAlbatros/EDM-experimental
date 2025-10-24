@@ -69,11 +69,36 @@ export default function Index() {
           </div>
         )}
 
+        {!q && latestVideos.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
+              <h2 className="text-lg md:text-xl font-bold">Latest Videos</h2>
+              <Link
+                to={`/?`}
+                className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
+                aria-label="View all videos"
+              >
+                View all
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {latestVideos.map((item, index) => (
+                <VideoCard
+                  key={item.id}
+                  item={item}
+                  isActive={index === 0}
+                  onHover={() => setActiveVideoId(item.id)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
         {q && (
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg md:text-xl font-bold">
-                Search results for “{q}”
+                Search results for "{q}"
               </h2>
               <Link
                 to="/"
@@ -88,8 +113,13 @@ export default function Index() {
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {searchResults.map((item) => (
-                  <VideoCard key={item.id} item={item} />
+                {searchResults.map((item, index) => (
+                  <VideoCard
+                    key={item.id}
+                    item={item}
+                    isActive={index === 0}
+                    onHover={() => setActiveVideoId(item.id)}
+                  />
                 ))}
               </div>
             )}
@@ -110,8 +140,13 @@ export default function Index() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {items.slice(0, 3).map((item) => (
-                  <VideoCard key={item.id} item={item} />
+                {items.slice(0, 3).map((item, index) => (
+                  <VideoCard
+                    key={item.id}
+                    item={item}
+                    isActive={index === 0}
+                    onHover={() => setActiveVideoId(item.id)}
+                  />
                 ))}
               </div>
             </section>
@@ -121,21 +156,43 @@ export default function Index() {
   );
 }
 
-function VideoCard({ item }: { item: FeedItem }) {
+function VideoCard({ 
+  item, 
+  isActive = false,
+  onHover 
+}: { 
+  item: FeedItem
+  isActive?: boolean
+  onHover?: () => void
+}) {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
     <Link
       to={watchHref}
-      className="group block overflow-hidden rounded-xl border bg-card hover:shadow-lg transition relative"
+      onMouseEnter={onHover}
+      className={`group block overflow-hidden rounded-xl border bg-card transition-all duration-200 relative ${
+        isActive 
+          ? 'border-primary shadow-lg ring-2 ring-primary ring-offset-2' 
+          : 'border-border hover:border-primary hover:shadow-lg'
+      }`}
     >
       <img
         src={item.thumbnail}
         alt={item.title}
-        className="aspect-video w-full object-cover group-hover:opacity-90"
+        className={`aspect-video w-full object-cover transition-all duration-200 ${
+          isActive 
+            ? 'opacity-95 brightness-110' 
+            : 'group-hover:opacity-95 group-hover:brightness-105'
+        }`}
       />
       <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
         {formatDuration(item.content.duration)}
       </span>
+      {isActive && (
+        <span className="absolute left-2 top-2 rounded bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground">
+          Featured
+        </span>
+      )}
       <div className="p-3">
         <h3 className="line-clamp-2 font-medium">{item.title}</h3>
         <p className="mt-1 text-xs text-muted-foreground">
