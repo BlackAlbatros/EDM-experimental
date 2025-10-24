@@ -10,33 +10,27 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CategoryPage from "./pages/Category";
 import WatchPage from "./pages/Watch";
-import { HeaderInner } from "./components/layout/Header";
+import { Header } from "./components/layout/Header";
 import { Splash } from "./components/layout/Splash";
 
 const queryClient = new QueryClient();
-
-const Router = () => (
-  <BrowserRouter>
-    <Splash />
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/category/:slug" element={<CategoryPage />} />
-      <Route path="/watch/:id" element={<WatchPage />} />
-      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </BrowserRouter>
-);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <div style={{ position: 'relative' }}>
-        <HeaderInner />
-        <Router />
-      </div>
+      <BrowserRouter>
+        <Splash />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/category/:slug" element={<CategoryPage />} />
+          <Route path="/watch/:id" element={<WatchPage />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
