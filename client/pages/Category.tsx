@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
@@ -8,11 +8,25 @@ export default function CategoryPage() {
   const params = useParams();
   const slug = params.slug ?? "";
   const { data, isLoading, error } = useFeedQuery();
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
   useEffect(() => {
     // Scroll to top when category page loads
     window.scrollTo(0, 0);
   }, [slug]);
+
+  useEffect(() => {
+    // Set first video in category as active
+    if (data?.shortFormVideos && slug) {
+      const categoryItems = data.shortFormVideos.filter((v) => {
+        const tag = (v.tags?.[0] ?? "").toString();
+        return slugify(tag) === slug;
+      });
+      if (categoryItems.length > 0) {
+        setActiveVideoId(categoryItems[0].id);
+      }
+    }
+  }, [data, slug]);
 
   if (isLoading) return <div className="p-6">Loading…</div>;
   if (error || !data) return <div className="p-6">Failed to load.</div>;
