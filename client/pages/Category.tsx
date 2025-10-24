@@ -10,6 +10,10 @@ export default function CategoryPage() {
   const slug = params.slug ?? "";
   const { data, isLoading, error } = useFeedQuery();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
   if (isLoading) return <div className="p-6">Loading…</div>;
   if (error || !data) return <div className="p-6">Failed to load.</div>;
 
