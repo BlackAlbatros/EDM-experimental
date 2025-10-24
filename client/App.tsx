@@ -20,9 +20,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <Splash />
-      <Header />
       <BrowserRouter>
+        <Splash />
+        <Header />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/category/:slug" element={<CategoryPage />} />
