@@ -67,23 +67,49 @@ export default function CategoryPage() {
   );
 }
 
-function VideoCard({ item }: { item: FeedItem }) {
+function VideoCard({
+  item,
+  isActive,
+  onFocus
+}: {
+  item: FeedItem;
+  isActive?: boolean;
+  onFocus?: () => void;
+}) {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
     <Link
       to={watchHref}
-      className="group block overflow-hidden rounded-lg border bg-card hover:shadow-lg transition relative"
+      onMouseEnter={onFocus}
+      onFocus={onFocus}
+      className={`group block overflow-hidden rounded-xl border transition relative ${
+        isActive
+          ? "border-yellow-400 shadow-lg shadow-yellow-400/50 ring-2 ring-yellow-400/50"
+          : "border-border bg-card hover:shadow-lg"
+      }`}
     >
       <img
         src={item.thumbnail}
         alt={item.title}
-        className="aspect-video w-full object-cover group-hover:opacity-90"
+        className={`aspect-video w-full object-cover transition ${
+          isActive ? "opacity-100" : "group-hover:opacity-90 opacity-85"
+        }`}
       />
       <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
         {formatDuration(item.content.duration)}
       </span>
-      <div className="p-3">
-        <h3 className="line-clamp-2 font-medium">{item.title}</h3>
+      <div className={`p-3 transition ${
+        isActive
+          ? "bg-yellow-400/10"
+          : "bg-card"
+      }`}>
+        <h3 className={`line-clamp-2 font-medium transition ${
+          isActive
+            ? "text-yellow-300 font-bold"
+            : "text-foreground"
+        }`}>
+          {item.title}
+        </h3>
       </div>
     </Link>
   );
