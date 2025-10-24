@@ -9,20 +9,6 @@ export function Header() {
   const [q, setQ] = useState(params.get("q") ?? "");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setQ(params.get("q") ?? "");
-  }, [params]);
-
-  useEffect(() => {
-    // Disable body scroll to prevent scroll events from affecting fixed elements
-    document.documentElement.style.overflow = 'visible';
-    document.body.style.overflow = 'visible';
-
-    // Ensure html has no transform that could affect fixed positioning
-    document.documentElement.style.transform = 'none';
-    document.body.style.transform = 'none';
-  }, []);
-
   function applySearch(value: string) {
     setQ(value);
     navigate(
