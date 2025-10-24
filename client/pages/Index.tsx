@@ -136,7 +136,12 @@ export default function Index() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {items.slice(0, 3).map((item) => (
-                  <VideoCard key={item.id} item={item} />
+                  <VideoCard
+                    key={item.id}
+                    item={item}
+                    isActive={activeVideoId === item.id}
+                    onFocus={() => setActiveVideoId(item.id)}
+                  />
                 ))}
               </div>
             </section>
