@@ -60,7 +60,10 @@ export default function Index() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
-      <div className="container mx-auto px-4 py-6 space-y-8" style={{ marginTop: "80px" }}>
+      <div
+        className="container mx-auto px-4 py-6 space-y-8"
+        style={{ marginTop: "80px" }}
+      >
         <Banner total={total} />
 
         {isLoading && <div className="p-6">Loading…</div>}
@@ -154,7 +157,7 @@ export default function Index() {
 function VideoCard({
   item,
   isActive,
-  onFocus
+  onFocus,
 }: {
   item: FeedItem;
   isActive?: boolean;
@@ -182,16 +185,16 @@ function VideoCard({
       <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
         {formatDuration(item.content.duration)}
       </span>
-      <div className={`p-3 transition ${
-        isActive
-          ? "bg-yellow-400/10"
-          : "bg-card"
-      }`}>
-        <h3 className={`line-clamp-2 font-medium transition ${
-          isActive
-            ? "text-yellow-300 font-bold"
-            : "text-foreground"
-        }`}>
+      <div
+        className={`p-3 transition ${
+          isActive ? "bg-yellow-400/10" : "bg-card"
+        }`}
+      >
+        <h3
+          className={`line-clamp-2 font-medium transition ${
+            isActive ? "text-yellow-300 font-bold" : "text-foreground"
+          }`}
+        >
           {item.title}
         </h3>
         <p className="mt-1 text-xs text-muted-foreground">

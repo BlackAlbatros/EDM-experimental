@@ -27,11 +27,14 @@ const AppContent = () => {
           const core = await import("@capacitor/core");
           const AppClass = (core as any).App;
           if (AppClass?.addListener) {
-            const listener = AppClass.addListener("backButton", ({ canGoBack }: { canGoBack: boolean }) => {
-              if (canGoBack || window.location.pathname !== "/") {
-                navigate(-1);
-              }
-            });
+            const listener = AppClass.addListener(
+              "backButton",
+              ({ canGoBack }: { canGoBack: boolean }) => {
+                if (canGoBack || window.location.pathname !== "/") {
+                  navigate(-1);
+                }
+              },
+            );
             return () => listener?.remove?.();
           }
         } catch (err) {
