@@ -3,12 +3,21 @@ import { Banner } from "@/components/Banner";
 import { Link, useSearchParams } from "react-router-dom";
 import { parseDate, slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { useState, useEffect } from "react";
 
 export default function Index() {
   const { data, isLoading, error } = useFeedQuery();
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
   const [params] = useSearchParams();
   const q = (params.get("q") ?? "").trim().toLowerCase();
+
+  // Set first video as active on page load
+  useEffect(() => {
+    if (data?.shortFormVideos && data.shortFormVideos.length > 0) {
+      setActiveVideoId(data.shortFormVideos[0].id);
+    }
+  }, [data]);
 
   const total = data?.shortFormVideos.length ?? 0;
 
