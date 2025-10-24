@@ -71,15 +71,8 @@ export default function Index() {
 
         {!q && latestVideos.length > 0 && (
           <section className="space-y-4">
-            <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
+            <div className="rounded-md bg-black/30 px-3 py-2">
               <h2 className="text-lg md:text-xl font-bold">Latest Videos</h2>
-              <Link
-                to={`/?`}
-                className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
-                aria-label="View all videos"
-              >
-                View all
-              </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {latestVideos.map((item, index) => (
