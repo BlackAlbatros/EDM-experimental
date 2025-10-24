@@ -28,24 +28,8 @@ const AppContent = () => {
           const AppClass = (core as any).App;
           if (AppClass?.addListener) {
             const listener = AppClass.addListener("backButton", ({ canGoBack }: { canGoBack: boolean }) => {
-              // If we can go back in history, navigate back
-              if (canGoBack) {
+              if (canGoBack || window.location.pathname !== "/") {
                 navigate(-1);
-              } else {
-                // If we're at the home/root, minimize app instead of closing
-                if (window.location.pathname === "/") {
-                  try {
-                    const core = await import("@capacitor/core");
-                    const AppClass = (core as any).App;
-                    if (AppClass?.minimizeApp) {
-                      AppClass.minimizeApp();
-                    }
-                  } catch (err) {
-                    console.warn("Minimize app failed", err);
-                  }
-                } else {
-                  navigate("/");
-                }
               }
             });
             return () => listener?.remove?.();
