@@ -57,11 +57,11 @@ export default function CategoryPage() {
 function VideoCard({
   item,
   isActive = false,
-  onHover
+  onHover,
 }: {
-  item: FeedItem
-  isActive?: boolean
-  onHover?: () => void
+  item: FeedItem;
+  isActive?: boolean;
+  onHover?: () => void;
 }) {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
@@ -70,8 +70,8 @@ function VideoCard({
       onMouseEnter={onHover}
       className={`group block overflow-hidden rounded-xl border bg-card transition-all duration-200 relative ${
         isActive
-          ? 'border-primary shadow-lg ring-2 ring-primary ring-offset-2'
-          : 'border-border hover:border-primary hover:shadow-lg'
+          ? "border-primary shadow-lg ring-2 ring-primary ring-offset-2"
+          : "border-border hover:border-primary hover:shadow-lg"
       }`}
     >
       <img
@@ -79,8 +79,8 @@ function VideoCard({
         alt={item.title}
         className={`aspect-video w-full object-cover transition-all duration-200 ${
           isActive
-            ? 'opacity-95 brightness-110'
-            : 'group-hover:opacity-95 group-hover:brightness-105'
+            ? "opacity-95 brightness-110"
+            : "group-hover:opacity-95 group-hover:brightness-105"
         }`}
       />
       <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">

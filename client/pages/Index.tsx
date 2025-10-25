@@ -26,10 +26,12 @@ export default function Index() {
 
   // Get latest videos sorted by date
   const latestVideos = data?.shortFormVideos
-    ? [...data.shortFormVideos].sort(
-        (a, b) =>
-          parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
-      ).slice(0, 3)
+    ? [...data.shortFormVideos]
+        .sort(
+          (a, b) =>
+            parseDate(b.content?.dateAdded) - parseDate(a.content?.dateAdded),
+        )
+        .slice(0, 3)
     : [];
 
   // Group by first tag (category)
@@ -149,14 +151,14 @@ export default function Index() {
   );
 }
 
-function VideoCard({ 
-  item, 
+function VideoCard({
+  item,
   isActive = false,
-  onHover 
-}: { 
-  item: FeedItem
-  isActive?: boolean
-  onHover?: () => void
+  onHover,
+}: {
+  item: FeedItem;
+  isActive?: boolean;
+  onHover?: () => void;
 }) {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
@@ -164,18 +166,18 @@ function VideoCard({
       to={watchHref}
       onMouseEnter={onHover}
       className={`group block overflow-hidden rounded-xl border bg-card transition-all duration-200 relative ${
-        isActive 
-          ? 'border-primary shadow-lg ring-2 ring-primary ring-offset-2' 
-          : 'border-border hover:border-primary hover:shadow-lg'
+        isActive
+          ? "border-primary shadow-lg ring-2 ring-primary ring-offset-2"
+          : "border-border hover:border-primary hover:shadow-lg"
       }`}
     >
       <img
         src={item.thumbnail}
         alt={item.title}
         className={`aspect-video w-full object-cover transition-all duration-200 ${
-          isActive 
-            ? 'opacity-95 brightness-110' 
-            : 'group-hover:opacity-95 group-hover:brightness-105'
+          isActive
+            ? "opacity-95 brightness-110"
+            : "group-hover:opacity-95 group-hover:brightness-105"
         }`}
       />
       <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
