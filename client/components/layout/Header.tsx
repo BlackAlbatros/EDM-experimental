@@ -25,8 +25,8 @@ export function Header() {
     <header
       className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b"
       style={{
-        position: "sticky !important" as any,
-        top: "0 !important" as any,
+        position: "sticky",
+        top: 0,
         display: "block",
         width: "100%",
       }}
