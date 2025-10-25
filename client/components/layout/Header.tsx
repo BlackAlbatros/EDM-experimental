@@ -22,7 +22,15 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b">
+    <header
+      className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b"
+      style={{
+        position: "sticky !important" as any,
+        top: "0 !important" as any,
+        display: "block",
+        width: "100%",
+      }}
+    >
       <div className="container mx-auto flex items-center gap-3 py-3">
         <div className="flex items-center">
           <img
