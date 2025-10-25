@@ -120,17 +120,11 @@
 
   #root {
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
   }
 
-  header[class*="fixed"] {
-    position: fixed !important;
+  header {
+    position: sticky !important;
     top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100vw !important;
-    z-index: 999999 !important;
+    z-index: 40 !important;
   }
 }
