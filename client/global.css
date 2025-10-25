@@ -104,27 +104,7 @@
     @apply border-border;
   }
 
-  html,
-  body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
   body {
     @apply bg-background text-foreground;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
-
-  #root {
-    width: 100%;
-  }
-
-  header {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 40 !important;
   }
 }
