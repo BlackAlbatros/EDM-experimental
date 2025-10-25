@@ -22,7 +22,7 @@ export function Header() {
     );
   }
 
-  return (
+  const headerContent = (
     <header
       className="fixed top-0 left-0 right-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b"
       style={{
@@ -31,7 +31,7 @@ export function Header() {
         left: 0,
         right: 0,
         width: '100%',
-        transform: 'none',
+        transform: 'translate3d(0, 0, 0)',
       }}
     >
       <div className="container mx-auto flex items-center gap-3 py-3">
@@ -75,4 +75,6 @@ export function Header() {
       </div>
     </header>
   );
+
+  return createPortal(headerContent, document.body);
 }
