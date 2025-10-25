@@ -36,12 +36,13 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b"
+      className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 bg-background/70 border-b transition-transform duration-300 ease-in-out"
       style={{
         position: "sticky",
         top: 0,
         display: "block",
         width: "100%",
+        transform: isHidden ? "translateY(-100%)" : "translateY(0)",
       }}
     >
       <div className="container mx-auto flex items-center gap-3 py-3">
