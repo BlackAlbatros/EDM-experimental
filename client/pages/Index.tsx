@@ -131,12 +131,10 @@ export default function Index() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {items.slice(0, 3).map((item, index) => (
+                {items.slice(0, 3).map((item) => (
                   <VideoCard
                     key={item.id}
                     item={item}
-                    isActive={index === 0}
-                    onHover={() => setActiveVideoId(item.id)}
                   />
                 ))}
               </div>
