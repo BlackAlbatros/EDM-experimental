@@ -35,12 +35,10 @@ export default function CategoryPage() {
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {items.map((item, index) => (
+        {items.map((item) => (
           <VideoCard
             key={item.id}
             item={item}
-            isActive={index === 0}
-            onHover={() => setActiveVideoId(item.id)}
           />
         ))}
       </div>
