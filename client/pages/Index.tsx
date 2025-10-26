@@ -7,7 +7,6 @@ import { useState } from "react";
 
 export default function Index() {
   const { data, isLoading, error } = useFeedQuery();
-  const [activeVideoId, setActiveVideoId] = useState<string>("");
 
   const [params] = useSearchParams();
   const q = (params.get("q") ?? "").trim().toLowerCase();
