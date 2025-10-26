@@ -56,6 +56,24 @@ export default function Index() {
     ),
   }));
 
+  // Collect all video IDs for keyboard navigation
+  if (q && searchResults.length > 0) {
+    allVideoIds.current = searchResults.map((item) => item.id);
+  } else if (!q && (latestVideos.length > 0 || categories.length > 0)) {
+    const ids: string[] = [];
+    if (latestVideos.length > 0) {
+      ids.push(...latestVideos.map((item) => item.id));
+    }
+    categories.forEach(({ items }) => {
+      ids.push(...items.slice(0, 3).map((item) => item.id));
+    });
+    allVideoIds.current = ids;
+  } else {
+    allVideoIds.current = [];
+  }
+
+  const keyboardNav = useKeyboardNav(allVideoIds.current);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
       <div className="container mx-auto px-4 py-6 space-y-8">
