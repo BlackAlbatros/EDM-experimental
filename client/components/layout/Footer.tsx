@@ -11,25 +11,29 @@ export const Footer = () => {
     {
       name: "Apple Music",
       url: "https://music.apple.com/md/artist/muziqrocks/1824742571",
-      image: "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2Fa6e8b0af77c74aec83a77e183e0484ed?format=webp&width=800",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2Fa6e8b0af77c74aec83a77e183e0484ed?format=webp&width=800",
       label: "MuziqRocks",
     },
     {
       name: "Spotify",
       url: "https://open.spotify.com/artist/11Bk21ABuYiZYnhizitHFi",
-      image: "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2F066b7fa742254991899da57f80b1542d?format=webp&width=800",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2F066b7fa742254991899da57f80b1542d?format=webp&width=800",
       label: "MuziqRocks",
     },
     {
       name: "YouTube",
       url: "https://www.youtube.com/@MuziqRocksChannel",
-      image: "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2F57d9f8495c314eceab78677c130e7001?format=webp&width=800",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2F57d9f8495c314eceab78677c130e7001?format=webp&width=800",
       label: "MuziqRocks",
     },
     {
       name: "Amazon Music",
       url: "https://music.amazon.co.uk/artists/B0FGS912GX/muziqrocks",
-      image: "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2Fac550674469649f7ba67ba5048fa7369?format=webp&width=800",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F671f0028cbd84e92ae00beab08c4b172%2Fac550674469649f7ba67ba5048fa7369?format=webp&width=800",
       label: "MuziqRocks",
     },
   ];
