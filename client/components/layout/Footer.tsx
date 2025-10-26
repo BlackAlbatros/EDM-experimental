@@ -1,4 +1,4 @@
-import { Globe, Apple, Spotify, Youtube, Music } from "lucide-react";
+import { Globe, Apple, Radio, Youtube, Music } from "lucide-react";
 
 export const Footer = () => {
   const links = [
