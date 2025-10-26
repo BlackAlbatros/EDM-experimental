@@ -14,6 +14,9 @@ export default function Index() {
 
   const total = data?.shortFormVideos.length ?? 0;
 
+  // Collect all visible video IDs for keyboard navigation
+  const allVideoIds = useRef<string[]>([]);
+
   // If searching, show flat results
   let searchResults: FeedItem[] = [];
   if (q && data?.shortFormVideos) {
