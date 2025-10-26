@@ -44,6 +44,8 @@ export default function CategoryPage() {
           <VideoCard
             key={item.id}
             item={item}
+            setRef={(ref) => keyboardNav.setRef(item.id, ref)}
+            isFocused={keyboardNav.isFocused(item.id)}
           />
         ))}
       </div>
