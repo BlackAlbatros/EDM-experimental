@@ -12,8 +12,8 @@ public class MuziqApplication extends Application {
         // Initialize the Engage Ads SDK
         EMAdsModuleInputBuilder builder = new EMAdsModuleInputBuilder();
         builder.setIsGdprApproved(true);
-        builder.setPublisherId("YOUR_PUBLISHER_ID");
-        builder.setChannelId("YOUR_CHANNEL_ID");
+        builder.setPublisherId("a8ce40dc");
+        builder.setChannelId("62570352");
         builder.setContext(getApplicationContext());
         builder.setIsDebug(false);
         builder.setBundleId(null);
