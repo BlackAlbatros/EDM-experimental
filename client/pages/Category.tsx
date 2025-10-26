@@ -56,41 +56,23 @@ export default function CategoryPage() {
 
 function VideoCard({
   item,
-  isActive = false,
-  onHover,
 }: {
   item: FeedItem;
-  isActive?: boolean;
-  onHover?: () => void;
 }) {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
     <Link
       to={watchHref}
-      onMouseEnter={onHover}
-      className={`group block overflow-hidden rounded-xl border bg-card transition-all duration-200 relative ${
-        isActive
-          ? "border-primary shadow-lg ring-2 ring-primary ring-offset-2"
-          : "border-border hover:border-primary hover:shadow-lg"
-      }`}
+      className="group block overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 relative hover:shadow-lg"
     >
       <img
         src={item.thumbnail}
         alt={item.title}
-        className={`aspect-video w-full object-cover transition-all duration-200 ${
-          isActive
-            ? "opacity-95 brightness-110"
-            : "group-hover:opacity-95 group-hover:brightness-105"
-        }`}
+        className="aspect-video w-full object-cover transition-all duration-200 group-hover:opacity-95"
       />
       <span className="absolute right-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
         {formatDuration(item.content.duration)}
       </span>
-      {isActive && (
-        <span className="absolute left-2 top-2 rounded bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground">
-          Featured
-        </span>
-      )}
       <div className="p-3">
         <h3 className="line-clamp-2 font-medium">{item.title}</h3>
       </div>
