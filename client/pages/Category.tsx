@@ -53,14 +53,23 @@ export default function CategoryPage() {
 
 function VideoCard({
   item,
+  setRef,
+  isFocused,
 }: {
   item: FeedItem;
+  setRef?: (ref: HTMLAnchorElement | null) => void;
+  isFocused?: boolean;
 }) {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
     <Link
+      ref={(el) => setRef?.(el)}
       to={watchHref}
-      className="group block overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 relative hover:shadow-lg"
+      className={`group block overflow-hidden rounded-xl border transition-all duration-200 relative ${
+        isFocused
+          ? "border-primary outline outline-2 outline-primary shadow-lg"
+          : "border-border hover:shadow-lg"
+      }`}
     >
       <img
         src={item.thumbnail}
