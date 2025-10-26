@@ -5,7 +5,6 @@ import { useFeedQuery } from "@/hooks/use-feed-query";
 import { useState, useEffect } from "react";
 
 export default function CategoryPage() {
-  const [activeVideoId, setActiveVideoId] = useState<string>("");
   const params = useParams();
   const slug = params.slug ?? "";
   const { data, isLoading, error } = useFeedQuery();
@@ -21,11 +20,6 @@ export default function CategoryPage() {
     const tag = (v.tags?.[0] ?? "").toString();
     return slugify(tag) === slug;
   });
-
-  // Set active video to first item on mount
-  if (!activeVideoId && items.length > 0) {
-    setActiveVideoId(items[0].id);
-  }
 
   return (
     <div className="container mx-auto px-4 py-6">
