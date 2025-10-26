@@ -2,7 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import type { FeedItem } from "@shared/api";
 import { slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useKeyboardNav } from "@/hooks/use-keyboard-nav";
 
 export default function CategoryPage() {
   const params = useParams();
