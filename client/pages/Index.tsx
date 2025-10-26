@@ -77,12 +77,10 @@ export default function Index() {
               <h2 className="text-lg md:text-xl font-bold">Latest Videos</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {latestVideos.map((item, index) => (
+              {latestVideos.map((item) => (
                 <VideoCard
                   key={item.id}
                   item={item}
-                  isActive={index === 0}
-                  onHover={() => setActiveVideoId(item.id)}
                 />
               ))}
             </div>
