@@ -3,6 +3,8 @@ import { Banner } from "@/components/Banner";
 import { Link, useSearchParams } from "react-router-dom";
 import { parseDate, slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { useKeyboardNav } from "@/hooks/use-keyboard-nav";
+import { useRef } from "react";
 
 export default function Index() {
   const { data, isLoading, error } = useFeedQuery();
