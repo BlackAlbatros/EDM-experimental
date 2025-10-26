@@ -22,6 +22,10 @@ export default function CategoryPage() {
     return slugify(tag) === slug;
   });
 
+  const itemIdsRef = useRef(items.map((item) => item.id));
+  itemIdsRef.current = items.map((item) => item.id);
+  const keyboardNav = useKeyboardNav(itemIdsRef.current);
+
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="mb-6 flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
