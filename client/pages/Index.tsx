@@ -3,6 +3,7 @@ import { Banner } from "@/components/Banner";
 import { Link, useSearchParams } from "react-router-dom";
 import { parseDate, slugify, formatDuration } from "@/lib/utils";
 import { useFeedQuery } from "@/hooks/use-feed-query";
+import { useEffect, useRef, useState, forwardRef } from "react";
 
 export default function Index() {
   const { data, isLoading, error } = useFeedQuery();
@@ -11,6 +12,8 @@ export default function Index() {
   const q = (params.get("q") ?? "").trim().toLowerCase();
 
   const total = data?.shortFormVideos.length ?? 0;
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const videoRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   // If searching, show flat results
   let searchResults: FeedItem[] = [];
@@ -41,6 +44,58 @@ export default function Index() {
     ),
   }));
 
+  const allVideos = q ? searchResults : categories.flatMap((c) => c.items.slice(0, 3));
+
+  useEffect(() => {
+    if (allVideos.length > 0 && videoRefs.current[0]) {
+      videoRefs.current[0].focus();
+    }
+  }, [allVideos.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!allVideos.length) return;
+
+      const cols = window.innerWidth >= 1024 ? 4 : window.innerWidth >= 768 ? 3 : 1;
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setFocusedIndex((prev) => {
+          const next = Math.min(prev + 1, allVideos.length - 1);
+          videoRefs.current[next]?.focus();
+          return next;
+        });
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setFocusedIndex((prev) => {
+          const next = Math.max(prev - 1, 0);
+          videoRefs.current[next]?.focus();
+          return next;
+        });
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setFocusedIndex((prev) => {
+          const next = Math.min(prev + cols, allVideos.length - 1);
+          videoRefs.current[next]?.focus();
+          return next;
+        });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setFocusedIndex((prev) => {
+          const next = Math.max(prev - cols, 0);
+          videoRefs.current[next]?.focus();
+          return next;
+        });
+      } else if (e.key === "Enter" && videoRefs.current[focusedIndex]) {
+        e.preventDefault();
+        videoRefs.current[focusedIndex]?.click();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [allVideos.length, focusedIndex]);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-black/20">
       <div className="container mx-auto px-4 py-6 space-y-8">
@@ -58,7 +113,7 @@ export default function Index() {
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg md:text-xl font-bold">
-                Search results for “{q}”
+                Search results for "{q}"
               </h2>
               <Link
                 to="/"
@@ -73,8 +128,13 @@ export default function Index() {
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {searchResults.map((item) => (
-                  <VideoCard key={item.id} item={item} />
+                {searchResults.map((item, idx) => (
+                  <VideoCard
+                    key={item.id}
+                    item={item}
+                    ref={(el) => (videoRefs.current[idx] = el)}
+                    isFocused={idx === focusedIndex}
+                  />
                 ))}
               </div>
             )}
@@ -82,7 +142,7 @@ export default function Index() {
         )}
 
         {!q &&
-          categories.map(({ name, slug, items }) => (
+          categories.map(({ name, slug, items }, catIdx) => (
             <section key={slug} className="space-y-4">
               <div className="flex items-center justify-between rounded-md bg-black/30 px-3 py-2">
                 <h2 className="text-lg md:text-xl font-bold">{name}</h2>
@@ -95,9 +155,19 @@ export default function Index() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {items.slice(0, 3).map((item) => (
-                  <VideoCard key={item.id} item={item} />
-                ))}
+                {items.slice(0, 3).map((item, itemIdx) => {
+                  const globalIdx = categories
+                    .slice(0, catIdx)
+                    .reduce((sum, c) => sum + Math.min(c.items.length, 3), 0) + itemIdx;
+                  return (
+                    <VideoCard
+                      key={item.id}
+                      item={item}
+                      ref={(el) => (videoRefs.current[globalIdx] = el)}
+                      isFocused={globalIdx === focusedIndex}
+                    />
+                  );
+                })}
               </div>
             </section>
           ))}
@@ -106,12 +176,18 @@ export default function Index() {
   );
 }
 
-function VideoCard({ item }: { item: FeedItem }) {
+const VideoCard = forwardRef<
+  HTMLAnchorElement,
+  { item: FeedItem; isFocused: boolean }
+>(({ item, isFocused }, ref) => {
   const watchHref = `/watch/${encodeURIComponent(item.id)}`;
   return (
     <Link
+      ref={ref}
       to={watchHref}
-      className="group block overflow-hidden rounded-xl border bg-card hover:shadow-lg transition relative"
+      className={`group block overflow-hidden rounded-xl border bg-card hover:shadow-lg transition relative ${
+        isFocused ? "ring-4 ring-primary shadow-xl scale-105" : ""
+      }`}
     >
       <img
         src={item.thumbnail}
@@ -129,4 +205,6 @@ function VideoCard({ item }: { item: FeedItem }) {
       </div>
     </Link>
   );
-}
+});
+
+VideoCard.displayName = "VideoCard";
