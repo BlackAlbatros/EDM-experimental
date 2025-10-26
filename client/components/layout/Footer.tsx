@@ -17,7 +17,7 @@ export const Footer = () => {
     {
       name: "Spotify",
       url: "https://open.spotify.com/user/MuziqRocks",
-      icon: Spotify,
+      icon: Radio,
       label: "MuziqRocks",
     },
     {
